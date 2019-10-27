@@ -29,12 +29,12 @@ public class CallService {
         File file = new File(getFileName(call));
 
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-            bufferedWriter.append(call.getTime().format(DateTimeFormatter.ofPattern(DATE_FORMAT)));
-            bufferedWriter.append(SPACE);
-            bufferedWriter.append(formatPhone(call.getNumber()));
-            bufferedWriter.append(System.lineSeparator());
-            bufferedWriter.close();
+            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
+                bufferedWriter.append(call.getTime().format(DateTimeFormatter.ofPattern(DATE_FORMAT)));
+                bufferedWriter.append(SPACE);
+                bufferedWriter.append(formatPhone(call.getNumber()));
+                bufferedWriter.append(System.lineSeparator());
+            }
         } catch (IOException e) {
             throw new IOException();
         }

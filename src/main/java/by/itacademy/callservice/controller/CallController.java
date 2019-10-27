@@ -23,13 +23,9 @@ public class CallController {
     private final CallService callService;
 
     @PostMapping(value = "/call")
-    public ResponseEntity saveCall(@RequestBody @Valid CallDto callDto) {
+    public ResponseEntity saveCall(@RequestBody @Valid CallDto callDto) throws IOException {
         callDto.setTime(LocalDateTime.now());
-        try {
-            callService.saveCall(callDto);
-            return ResponseEntity.ok().build();
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        callService.saveCall(callDto);
+        return ResponseEntity.ok().build();
     }
 }
